@@ -2,7 +2,7 @@
   "name": "subkit-cli",
   "description": "The subtitles toolkit for converting between SRT, WebVTT, and FCPXML",
   "repository": "https://github.com/LitoMore/subkit-cli",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "LitoMore",
   "license": "MIT",
   "type": "module",
