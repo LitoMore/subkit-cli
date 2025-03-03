@@ -11,7 +11,7 @@
     "subkit": "./distribution/cli.js"
   },
   "files": [
-    "distribtution"
+    "distribution"
   ],
   "scripts": {
 		"prepublishOnly": "npm run build",
