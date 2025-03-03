@@ -42,7 +42,6 @@ export const toText = (
 	} = {},
 ): string => {
 	const {separator, fps = 30} = options;
-	console.log(fps);
 
 	switch (format) {
 		case 'srt': {
