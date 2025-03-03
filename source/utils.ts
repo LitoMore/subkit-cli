@@ -60,23 +60,37 @@ export const toText = (
 };
 
 export const loadFile = async (filePath: string): Promise<SubFile> => {
-	const extension = path.extname(filePath).slice(1) || detectFormat(filePath);
+	let unkownFormat = true;
+	const parsed = path.parse(filePath);
+	const extension = parsed.ext.slice(1);
 	if (!extension) {
-		console.error(ui.warn, `Unknown file format: ${ui.red(filePath)}`);
-		return {filePath};
-	}
-
-	if (!supportedExtensions.includes(extension)) {
-		console.error(ui.warn, `Unsupported format: ${ui.red(extension)}`);
-		return {filePath, extension};
+		console.error(
+			ui.warn,
+			`Unknown file format: ${ui.red(filePath)}, trying to read it as text to detect the format`,
+		);
+	} else if (supportedExtensions.includes(extension)) {
+		unkownFormat = false;
+	} else {
+		console.error(
+			ui.warn,
+			`Unsupported format: ${ui.dim(parsed.name) + ui.red(parsed.ext)}, trying to read it as text to detect the format`,
+		);
 	}
 
 	try {
 		const content = await fs.readFile(filePath, 'utf8');
+		const format = unkownFormat ? detectFormat(content) : extension;
+		if (!format) {
+			console.error(
+				ui.error,
+				`Could not detect the format of the file ${ui.dim(filePath)}`,
+			);
+		}
+
 		return {
 			filePath,
 			extension,
-			data: toData(content, extension as Format),
+			data: toData(content, format as Format),
 		};
 	} catch (error) {
 		if (error instanceof Error) console.error(ui.error, error.message);

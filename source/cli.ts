@@ -29,7 +29,6 @@ Examples
 			format: {
 				type: 'string',
 				shortFlag: 'f',
-				isRequired: true,
 			},
 			separator: {
 				type: 'string',
@@ -45,6 +44,7 @@ Examples
 const filePaths = cli.input;
 const {format, separator, fps} = cli.flags;
 
+validator.filePathsValidator(filePaths);
 validator.formatValidator(format);
 validator.separatorValidator(format, separator);
 validator.fpsValidator(format, fps);

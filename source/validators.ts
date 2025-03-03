@@ -3,14 +3,26 @@ import process from 'node:process';
 import * as ui from './ui.js';
 import {supportedExtensions, supportedSeparators} from './utils.js';
 
-export const formatValidator = (format: string) => {
+export const filePathsValidator = (filePaths: string[]) => {
+	if (filePaths.length === 0) {
+		console.error(ui.error, 'No files provided');
+		process.exit(1);
+	}
+};
+
+export const formatValidator = (format?: string) => {
+	if (!format) {
+		console.error(ui.error, 'No format provided');
+		process.exit(1);
+	}
+
 	if (!supportedExtensions.includes(format)) {
 		console.error(ui.error, `Unsupported format: ${ui.red(format)}`);
 		process.exit(1);
 	}
 };
 
-export const separatorValidator = (format: string, separator?: string) => {
+export const separatorValidator = (format?: string, separator?: string) => {
 	if (
 		(format === 'srt' || format === 'vtt') &&
 		separator &&
@@ -21,7 +33,7 @@ export const separatorValidator = (format: string, separator?: string) => {
 	}
 };
 
-export const fpsValidator = (format: string, fps?: number) => {
+export const fpsValidator = (format?: string, fps?: number) => {
 	if (format === 'fcpxml') {
 		if (Number.isNaN(Number(fps))) {
 			console.error(ui.error, 'fps must be a number');
