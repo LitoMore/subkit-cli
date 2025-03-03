@@ -64,14 +64,14 @@ export const loadFile = async (filePath: string): Promise<SubFile> => {
 	const parsed = path.parse(filePath);
 	const extension = parsed.ext.slice(1);
 	if (!extension) {
-		console.error(
+		console.warn(
 			ui.warn,
 			`Unknown file format: ${ui.red(filePath)}, trying to read it as text to detect the format`,
 		);
 	} else if (supportedExtensions.includes(extension)) {
 		unkownFormat = false;
 	} else {
-		console.error(
+		console.warn(
 			ui.warn,
 			`Unsupported format: ${ui.dim(parsed.name) + ui.red(parsed.ext)}, trying to read it as text to detect the format`,
 		);
