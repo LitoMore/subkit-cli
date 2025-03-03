@@ -11,10 +11,10 @@
     "subkit": "./distribution/cli.js"
   },
   "files": [
-    "distribtuion"
+    "distribtution"
   ],
   "scripts": {
-    "build": "del-cli distribtuion && tsc",
+    "build": "del-cli distribution && tsc",
     "test": "xo"
   },
   "dependencies": {
